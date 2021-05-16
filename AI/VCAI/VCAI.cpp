@@ -2669,10 +2669,16 @@ void AIStatus::attemptedAnsweringQuery(QueryID queryID, int answerRequestID)
 
 void AIStatus::receivedAnswerConfirmation(int answerRequestID, int result)
 {
-	assert(vstd::contains(requestToQueryID, answerRequestID));
-	QueryID query = requestToQueryID[answerRequestID];
-	assert(vstd::contains(remainingQueries, query));
-	requestToQueryID.erase(answerRequestID);
+	QueryID query;
+
+	{
+		boost::unique_lock<boost::mutex> lock(mx);
+
+		assert(vstd::contains(requestToQueryID, answerRequestID));
+		query = requestToQueryID[answerRequestID];
+		assert(vstd::contains(remainingQueries, query));
+		requestToQueryID.erase(answerRequestID);
+	}
 
 	if(result)
 	{

@@ -5,7 +5,7 @@ sudo apt-get install -qq nsis ninja-build
 
 if true; then
 	# MXE repository was too slow for Travis far too often
-	wget https://github.com/nullkiller/vcmi-deps-mxe/releases/download/2021-01-22/mxe-$MXE_TARGET-2021-01-22.tar
+	wget https://github.com/vcmi/vcmi-deps-mxe/releases/download/2021-02-20/mxe-$MXE_TARGET-2021-01-22.tar
 	tar -xvf mxe-$MXE_TARGET-2021-01-22.tar
 	sudo dpkg -i mxe-*.deb
 	sudo apt-get install -f --yes
