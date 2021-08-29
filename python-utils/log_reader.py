@@ -1,6 +1,6 @@
 import argparse  
 from pathlib import Path
-           
+
 
 parser = argparse.ArgumentParser(description='command line options')
 parser.add_argument('--lvl', action="store", dest="lvl", default='info', help="scaning log level")    
@@ -21,6 +21,10 @@ print('\r\n')
 with open(inputs.dir + '/' + inputs.file, 'r') as file:
   lines = file.readlines()
   for line in lines:
-    if str(inputs.filter).upper() in line or str(inputs.text).lower() in line.lower():
-      print(line)
+    if (str(inputs.lvl).upper() in line) or (str(inputs.text).lower() in line.lower()):
+      if inputs.filter == '':
+        print(line)
+      else:
+        if inputs.filter in line:
+          print(line)
 
